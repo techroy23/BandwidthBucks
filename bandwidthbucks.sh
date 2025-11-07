@@ -230,6 +230,8 @@ run_proxies() {
         [[ "${app_PacketStream:-DISABLED}"   == "ENABLED" ]] && run_proxy_cmd_PacketStream   "$tun_cname" "$counter"
         [[ "${app_Peer2Profit:-DISABLED}"    == "ENABLED" ]] && run_proxy_cmd_Peer2Profit    "$tun_cname" "$counter"
         [[ "${app_Wipter:-DISABLED}"         == "ENABLED" ]] && run_proxy_cmd_Wipter         "$tun_cname" "$counter"
+        [[ "${app_Adnade_Surfbar:-DISABLED}" == "ENABLED" ]] && run_proxy_cmd_Adnade_Surfbar "$tun_cname" "$counter"
+        [[ "${app_Adnade_PTP:-DISABLED}"     == "ENABLED" ]] && run_proxy_cmd_Adnade_PTP     "$tun_cname" "$counter"
         ((idy++))
     done
 }
@@ -251,6 +253,8 @@ pull_all() {
     [[ "${app_PacketStream:-DISABLED}"       == "ENABLED" ]] && docker pull techroy23/docker-packetstream
     [[ "${app_Peer2Profit:-DISABLED}"        == "ENABLED" ]] && docker pull techroy23/docker-peer2profit
     [[ "${app_Wipter:-DISABLED}"             == "ENABLED" ]] && docker pull techroy23/docker-wipter
+    [[ "${app_Adnade_Surfbar:-DISABLED}"     == "ENABLED" ]] && docker pull techroy23/docker-chrome-kiosk
+    [[ "${app_Adnade_PTP:-DISABLED}"         == "ENABLED" ]] && docker pull techroy23/docker-chrome-kiosk
 }
 
 # -----------------------------
@@ -278,6 +282,8 @@ validate_env_vars() {
     [[ "${app_PacketStream:-DISABLED}"       == "ENABLED" ]] && { check_var "var_PacketStream_Token"; }
     [[ "${app_Peer2Profit:-DISABLED}"        == "ENABLED" ]] && { check_var "var_Peer2Profit_Email"; }
     [[ "${app_Wipter:-DISABLED}"             == "ENABLED" ]] && { check_var "var_Wipter_Email";         check_var "var_Wipter_Password"; }
+    [[ "${app_Adnade_Surfbar:-DISABLED}"     == "ENABLED" ]] && { check_var "var_Adnade_Surfbar_URL"; }
+    [[ "${app_Adnade_PTP:-DISABLED}"         == "ENABLED" ]] && { check_var "var_Adnade_PTP_URL"; }
 
     if (( missing )); then
         echo "⚠️ One or more required variables are missing. Fix .env and retry."
@@ -477,6 +483,28 @@ run_cmd_Wipter() {
     docker start "$cid" >/dev/null || echo "⚠️ $cname stuck in CREATED"
 }
 
+run_cmd_Adnade_Surfbar() {
+    local cname="Adnade_Surfbar_${RUN_SUFFIX}"
+    echo "Deploying Adnade_Surfbar as $cname..."
+    cid=$(docker create --name="$cname" $(extra_flags) $(dns_flags) $(log_driver_flag) \
+        -e WEBSITE="$var_Adnade_Surfbar_URL" \
+        -e DISCORDWEBHOOKURL="$var_Adnade_Surfbar_DISCORDWEBHOOKURL" \
+        techroy23/docker-chrome-kiosk) || { echo "❌ Failed to create $cname"; return 1; }
+    record_container "Adnade_Surfbar" "$cname"
+    docker start "$cid" >/dev/null || echo "⚠️ $cname stuck in CREATED"
+}
+
+run_cmd_Adnade_PTP() {
+    local cname="Adnade_PTP_${RUN_SUFFIX}"
+    echo "Deploying Adnade_PTP as $cname..."
+    cid=$(docker create --name="$cname" $(extra_flags) $(dns_flags) $(log_driver_flag) \
+        -e WEBSITE="$var_Adnade_PTP_URL" \
+        -e DISCORDWEBHOOKURL="$var_Adnade_Surfbar_DISCORDWEBHOOKURL" \
+        techroy23/docker-chrome-kiosk) || { echo "❌ Failed to create $cname"; return 1; }
+    record_container "Adnade_PTP" "$cname"
+    docker start "$cid" >/dev/null || echo "⚠️ $cname stuck in CREATED"
+}
+
 # -----------------------------
 # App runners (proxy mode)
 # -----------------------------
@@ -620,6 +648,31 @@ run_proxy_cmd_Wipter() {
     docker start "$cid" >/dev/null || echo "⚠️ $cname stuck in CREATED"
 }
 
+run_proxy_cmd_Adnade_Surfbar() {
+    local tun_cname="$1"; local index="$2"
+    local cname=${index:+$(printf "Adnade_Surfbar_%s_%05d" "$RUN_SUFFIX" "$index")}
+    cname=${cname:-"Adnade_Surfbar_${RUN_SUFFIX}"}
+    echo "Deploying Adnade_Surfbar as $cname (via $tun_cname)..."
+    cid=$(docker create --name="$cname" $(extra_flags) $(log_driver_flag) --network=container:"$tun_cname" \
+        -e WEBSITE="$var_Adnade_Surfbar_URL" \
+        -e DISCORDWEBHOOKURL="$var_Adnade_Surfbar_DISCORDWEBHOOKURL" \
+        techroy23/docker-chrome-kiosk) || { echo "❌ Failed to create $cname"; return 1; }
+    record_container "Adnade_Surfbar" "$cname"
+    docker start "$cid" >/dev/null || echo "⚠️ $cname stuck in CREATED"
+}
+
+run_proxy_cmd_Adnade_PTP() {
+    local tun_cname="$1"; local index="$2"
+    local cname=${index:+$(printf "Adnade_PTP_%s_%05d" "$RUN_SUFFIX" "$index")}
+    cname=${cname:-"Adnade_PTP_${RUN_SUFFIX}"}
+    echo "Deploying Adnade_PTP as $cname (via $tun_cname)..."
+    cid=$(docker create --name="$cname" $(extra_flags) $(log_driver_flag) --network=container:"$tun_cname" \
+        -e WEBSITE="$var_Adnade_PTP_URL" \
+        -e DISCORDWEBHOOKURL="$var_Adnade_Surfbar_DISCORDWEBHOOKURL" \
+        techroy23/docker-chrome-kiosk) || { echo "❌ Failed to create $cname"; return 1; }
+    record_container "Adnade_PTP" "$cname"
+    docker start "$cid" >/dev/null || echo "⚠️ $cname stuck in CREATED"
+}
 
 # -----------------------------
 # Main
@@ -665,6 +718,8 @@ case "${1:-}" in
             [[ "${app_PacketStream:-DISABLED}"   == "ENABLED" ]] && run_cmd_PacketStream
             [[ "${app_Peer2Profit:-DISABLED}"    == "ENABLED" ]] && run_cmd_Peer2Profit
             [[ "${app_Wipter:-DISABLED}"         == "ENABLED" ]] && run_cmd_Wipter
+            [[ "${app_Adnade_Surfbar:-DISABLED}" == "ENABLED" ]] && run_cmd_Adnade_Surfbar
+            [[ "${app_Adnade_PTP:-DISABLED}"     == "ENABLED" ]] && run_cmd_Adnade_PTP
         fi
         ;;
     STOP)

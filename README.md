@@ -74,7 +74,7 @@
         <td align="center">❌</td>
       </tr>
       <tr>
-        <td align="center"><a href=""><img src="" width="50px"></a></td>
+        <td align="center"><a href="https://join.honeygain.com/VILLA9A2E9"><img src="./img/ico_Honeygain.png" width="50px"></a></td>
         <td align="center"><a href="https://join.honeygain.com/VILLA9A2E9">HoneyGain</a></td>
         <td align="center">✔️</td>
         <td align="center">❌</td>
@@ -86,16 +86,22 @@
         <td align="center">❌</td>
       </tr>
       <tr>
-        <td align="center"><a href=""><img src="" width="50px"></a></td>
+        <td align="center"><a href="https://t.me/peer2profit_app_bot?start=1628962882611800423c343"><img src="./img/ico_Peer2Profit.png" width="50px"></a></td>
         <td align="center"><a href="https://t.me/peer2profit_app_bot?start=1628962882611800423c343">Peer2Profit</a></td>
         <td align="center">✔️</td>
         <td align="center">✔️</td>
       </tr>
       <tr>
-        <td align="center"><a href=""><img src="" width="50px"></a></td>
+        <td align="center"><a href="https://wipter.com/register?via=66075F1E60"><img src="./img/ico_Wipter.png" width="50px"></a></td>
         <td align="center"><a href="https://wipter.com/register?via=66075F1E60">Wipter</a></td>
         <td align="center">✔️</td>
         <td align="center">❌</td>
+      </tr>
+      <tr>
+        <td align="center"><a href="https://adnade.net/?ref=techroy23"><img src="./img/ico_Adnade.png" width="50px"></a></td>
+        <td align="center"><a href="https://adnade.net/?ref=techroy23">AdNade</a></td>
+        <td align="center">✔️</td>
+        <td align="center">✔️</td>
       </tr>
     </tbody>
   </table>
