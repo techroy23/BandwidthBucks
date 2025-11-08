@@ -524,7 +524,7 @@ run_proxy_cmd_CastarSDK() {
     echo "Deploying CastarSDK as $cname (via $tun_cname)..."
     cid=$(docker create --name="$cname" $(extra_flags) $(log_driver_flag) --network=container:"$tun_cname" \
         -e APPKEY="$var_CastarSDK_AppKey" \
-        techroy23/docker-castarsdk:latest) || { echo "❌ Failed to create $cname"; return 1; }
+        techroy23/docker-castarsdk) || { echo "❌ Failed to create $cname"; return 1; }
     record_container "CastarSDK" "$cname"
     docker start "$cid" >/dev/null || echo "⚠️ $cname stuck in CREATED"
 }
@@ -536,7 +536,7 @@ run_proxy_cmd_PacketSDK() {
     echo "Deploying PacketSDK as $cname (via $tun_cname)..."
     cid=$(docker create --name="$cname" $(extra_flags) $(log_driver_flag) --network=container:"$tun_cname" \
         -e APPKEY="$var_PacketSDK_AppKey" \
-        techroy23/docker-packetsdk:latest) || { echo "❌ Failed to create $cname"; return 1; }
+        techroy23/docker-packetsdk) || { echo "❌ Failed to create $cname"; return 1; }
     record_container "PacketSDK" "$cname"
     docker start "$cid" >/dev/null || echo "⚠️ $cname stuck in CREATED"
 }
