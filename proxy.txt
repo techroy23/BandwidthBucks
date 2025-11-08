@@ -1,0 +1,13 @@
+##############################################
+#                                            #
+# Sample Format                              #
+#                                            #
+# http://host:port                           #
+# http://[username:password@]hostname:port   #
+# socks4://hostname:port                     #
+# socks4://[username@]hostname:port          #
+# socks5://host:port                         #
+# socks5://[username:password@]hostname:port #
+#                                            #
+##############################################
+
