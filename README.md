@@ -125,7 +125,7 @@
     ```bash
     git clone https://github.com/techroy23/BandwidthBucks
     cd BandwidthBucks
-    chmod +x bandwidthBucks.sh
+    chmod +x bandwidthbucks.sh
     ```
 
 - Create and edit .env with your account credentials:
