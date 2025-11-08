@@ -2,32 +2,6 @@
 set -euo pipefail
 
 # -----------------------------
-# Usage / Help Output
-# -----------------------------
-print_usage() {
-    echo -e " "
-    echo -e "\033[1;34m   ╔═══════════════════════════════════════════════════════════════╗\033[0m"
-    echo -e "\033[1;34m   ║\033[0m  # # # # # # # # # # # \033[1;36mBandwidth Bucks\033[0m # # # # # # # # # # #  \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ╠═══════════════════════════════════════════════════════════════╣\033[0m"
-    echo -e "\033[1;34m   ║\033[0m                                                               \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m  \033[1;35mUsage:\033[0m      bandwidthBucks.sh \033[1mCOMMAND\033[0m                        \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m                                                               \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m  \033[1;35mCommands:\033[0m                                                    \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m    \033[1;32mSTART\033[0m   - Deploy enabled containers (direct or via proxy)  \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m    \033[1;31mSTOP\033[0m    - Stop and remove all tracked containers           \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m    \033[1;33mPULL\033[0m    - Pull latest images for enabled containers        \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m    \033[1;36mCLEAN\033[0m   - Force-remove leftovers and reset state           \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m                                                               \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m  \033[1;35mNotes:\033[0m                                                       \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m    Set \033[1;32mPROXY=ENABLED\033[0m in .env and list proxies in proxy.txt    \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m    Single proxy → one tun2socks + apps with shared suffix     \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m    Multiple proxies → tun2socks + apps with counter suffixes  \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ║\033[0m                                                               \033[1;34m║\033[0m"
-    echo -e "\033[1;34m   ╚═══════════════════════════════════════════════════════════════╝\033[0m"
-    echo -e " "
-}
-
-# -----------------------------
 # Privilege & Docker Checks
 # -----------------------------
 if [[ $EUID -ne 0 ]]; then
@@ -52,6 +26,32 @@ if ! docker info >/dev/null 2>&1; then
     echo "❌ Docker daemon not reachable. Is it running?"
     exit 1
 fi
+
+# -----------------------------
+# Usage / Help Output
+# -----------------------------
+print_usage() {
+    echo -e " "
+    echo -e "\033[1;34m   ╔═══════════════════════════════════════════════════════════════╗\033[0m"
+    echo -e "\033[1;34m   ║\033[0m  # # # # # # # # # # # \033[1;36mBandwidth Bucks\033[0m # # # # # # # # # # #  \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ╠═══════════════════════════════════════════════════════════════╣\033[0m"
+    echo -e "\033[1;34m   ║\033[0m                                                               \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m  \033[1;35mUsage:\033[0m      bandwidthBucks.sh \033[1mCOMMAND\033[0m                        \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m                                                               \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m  \033[1;35mCommands:\033[0m                                                    \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m    \033[1;32mSTART\033[0m   - Deploy enabled containers (direct or via proxy)  \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m    \033[1;31mSTOP\033[0m    - Stop and remove all tracked containers           \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m    \033[1;33mPULL\033[0m    - Pull latest images for enabled containers        \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m    \033[1;36mCLEAN\033[0m   - Force-remove leftovers and reset state           \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m                                                               \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m  \033[1;35mNotes:\033[0m                                                       \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m    Set \033[1;32mPROXY=ENABLED\033[0m in .env and list proxies in proxy.txt    \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m    Single proxy → one tun2socks + apps with shared suffix     \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m    Multiple proxies → tun2socks + apps with counter suffixes  \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ║\033[0m                                                               \033[1;34m║\033[0m"
+    echo -e "\033[1;34m   ╚═══════════════════════════════════════════════════════════════╝\033[0m"
+    echo -e " "
+}
 
 # -----------------------------
 # Load environment
@@ -131,16 +131,25 @@ apply_sysctl_settings() {
         sysctl -w "$key=$val" >/dev/null
     done
 
-    if [[ -w /etc/sysctl.conf ]]; then
+    local SYSCTL_FILE="/etc/sysctl.d/99-bandwidthbucks.conf"
+
+    if [[ -d /etc/sysctl.d && -w /etc/sysctl.d ]]; then
+        echo "♻️ Persisting sysctl settings to $SYSCTL_FILE..."
+        : > "$SYSCTL_FILE"
+        for setting in "${SYSCTL_SETTINGS[@]}"; do
+            echo "$setting" >> "$SYSCTL_FILE"
+        done
+        sysctl --system >/dev/null
+    elif [[ -w /etc/sysctl.conf ]]; then
+        echo "♻️ Persisting sysctl settings to /etc/sysctl.conf (legacy fallback)..."
         for setting in "${SYSCTL_SETTINGS[@]}"; do
             key="${setting%%=*}"
             sed -i "/^[[:space:]]*${key}[[:space:]]*=/d" /etc/sysctl.conf
             echo "$setting" >> /etc/sysctl.conf
         done
-        echo "♻️ Reloading persisted sysctl settings from /etc/sysctl.conf..."
         sysctl -p >/dev/null
     else
-        echo "⚠️ Cannot persist sysctl settings (no write access to /etc/sysctl.conf)."
+        echo "⚠️ Cannot persist sysctl settings (no write access)."
     fi
 }
 
