@@ -104,8 +104,8 @@
         <td align="center">✔️</td>
       </tr>
       <tr>
-        <td align="center"><a href="peer.proxybase.org?referral=m7L9vn5pTq"><img src="./img/ico_ProxyBase.png" width="50px"></a></td>
-        <td align="center"><a href="peer.proxybase.org?referral=m7L9vn5pTq">ProxyBase</a></td>
+        <td align="center"><a href="https://peer.proxybase.org?referral=m7L9vn5pTq"><img src="./img/ico_ProxyBase.png" width="50px"></a></td>
+        <td align="center"><a href="https://peer.proxybase.org?referral=m7L9vn5pTq">ProxyBase</a></td>
         <td align="center">✔️</td>
         <td align="center">✔️</td>
       </tr>
