@@ -109,6 +109,12 @@
         <td align="center">✔️</td>
         <td align="center">✔️</td>
       </tr>
+      <tr>
+        <td align="center"><a href="https://link.antgain.app/OC55988U"><img src="https://antgain.app/logo-2.png" width="50px"></a></td>
+        <td align="center"><a href="https://link.antgain.app/OC55988U">AntGain</a></td>
+        <td align="center">✔️</td>
+        <td align="center">✔️</td>
+      </tr>
     </tbody>
   </table>
 </div>
