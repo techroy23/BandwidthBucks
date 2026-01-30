@@ -38,8 +38,8 @@
         <td align="center">✔️</td>
       </tr>
       <tr>
-        <td align="center"><a href="https://packetsdk.com/?r=L2kDofIF"><img src="./img/ico_PacketSDK.png" width="50px"></a></td>
-        <td align="center"><a href="https://packetsdk.com/?r=L2kDofIF">PacketSDK</a></td>
+        <td align="center"><a href="https://pkdsdk.com/?r=L2kDofIF"><img src="./img/ico_PacketSDK.png" width="50px"></a></td>
+        <td align="center"><a href="https://pkdsdk.com/?r=L2kDofIF">PacketSDK</a></td>
         <td align="center">✔️</td>
         <td align="center">✔️</td>
       </tr>
